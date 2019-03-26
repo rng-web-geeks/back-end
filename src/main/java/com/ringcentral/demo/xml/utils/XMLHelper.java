@@ -34,4 +34,12 @@ public final class XMLHelper {
     public static String getFullTextChildrenFromElement(Element el) {
         return XMLUtils.getFullTextChildrenFromElement(el);
     }
+
+    public static Element[] selectDsNodes(Node sibling, String nodeName) {
+        return XMLUtils.selectDsNodes(sibling, nodeName);
+    }
+
+    public static boolean isDescendantOrSelf(Node current, Node target) {
+       return XMLUtils.isDescendantOrSelf(current, target);
+    }
 }
