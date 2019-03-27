@@ -60,7 +60,7 @@ public class VerifyXMLSignedInfoReference {
     private static byte[] getCanonicalizedXML(Element node, Document doc)  throws Exception  {
         Element signatureNode = getSignatureNode(doc.getDocumentElement());
 
-        XMLSignatureInput input = new XMLSignatureInput(doc.getFirstChild());
+        XMLSignatureInput input = new XMLSignatureInput(node);
         input.setExcludeComments(true);
         input.setExcludeNode(signatureNode);
         input.setSecureValidation(true);
