@@ -19,7 +19,7 @@ public class VerifySignatureValue {
         X509Certificate verifyCert = CertificateHelper.loadCert("certs/okta.pem");
         Document doc = XMLHelper.loadXML("xml/signed-xml-example.xml");
 
-        Element signatureNode = getSignatureNode(doc);
+        Element signatureNode = getSignatureNode(doc.getDocumentElement());
         Element signInfoNode = XMLHelper.getNextElement(signatureNode.getFirstChild());
 
         String methodUrl = getCanonicalizationMethodURI(signInfoNode);
@@ -52,14 +52,14 @@ public class VerifySignatureValue {
         return canonicalizationMethod.getAttribute("Algorithm");
     }
 
-    private static Element getSignatureNode(Document doc) throws Exception {
-        NodeList signatureNodes = doc.getElementsByTagNameNS(javax.xml.crypto.dsig.XMLSignature.XMLNS, "Signature");
+    private static Element getSignatureNode(Element doc) throws Exception {
+        Element[] signatureNodes = XMLHelper.selectDsNodes(doc.getFirstChild(), "Signature");
 
-        if (signatureNodes.getLength() == 0) {
+        if (signatureNodes.length == 0) {
             throw new Exception("Cannot find Signature element");
         }
 
-        return (Element) signatureNodes.item(0);
+        return signatureNodes[0];
     }
 
 }
