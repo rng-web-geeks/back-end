@@ -29,7 +29,7 @@ public class CreateXMLSignature {
 
         transforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
 
-        sig.addDocument("#930046593230", transforms, "http://www.w3.org/2001/04/xmlenc#sha256");
+        sig.addDocument(String.format("#%s", doc.getDocumentElement().getAttribute("ID")), transforms, "http://www.w3.org/2001/04/xmlenc#sha256");
 
         sig.addKeyInfo(certificate);
         sig.sign(signKey);
