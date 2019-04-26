@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public final class XMLHelper {
 
@@ -41,5 +42,9 @@ public final class XMLHelper {
 
     public static boolean isDescendantOrSelf(Node current, Node target) {
        return XMLUtils.isDescendantOrSelf(current, target);
+    }
+
+    public static void toXML(Node node, OutputStream os) {
+        XMLUtils.outputDOM(node, os, true);
     }
 }
