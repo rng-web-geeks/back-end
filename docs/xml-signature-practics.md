@@ -3,7 +3,7 @@
 Kevin Chen - 铃盛软件Web Application Team
 
 本文是[XML数字签名原理篇](xml-signature-introduction.md)的姐妹篇，在“原理篇”中我们从理论上探讨了XML数字签名的原理和签名的处理过程，以及验证数字签名的步骤。
-胡适先生说过科学的精神就是大胆假设，谨慎求解，所以这篇文章的目标就是从应用层面针对“原理篇”中介绍的内容进行验证，实践是检验真理的唯一标准，尤其是编程这门实践性非常强的学科。
+胡适先生说过科学的精神就是大胆假设，小心求证，所以这篇文章的目标就是从应用层面针对“原理篇”中介绍的内容进行验证，实践是检验真理的唯一标准，尤其是编程这门实践性非常强的学科。
 
 本文分成两部分，第一部分以一个第三方系统生成的一份XML签名文档为例，应用Java代码进行签名的验证，第二部分则通过对一份简单的原始XML文档进行签名来演示生成XML数字签名的过程。
 
@@ -135,7 +135,7 @@ DOMValidateContext valContext = new DOMValidateContext(certificate.getPublicKey(
 XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 javax.xml.crypto.dsig.XMLSignature signature = fac.unmarshalXMLSignature(valContext);
 
-//valiate成功，说明XML签名是有效的，反之则被篡改
+//validate成功，说明XML签名是有效的，反之则被篡改
 boolean result = signature.validate(valContext);
 
 System.out.println(String.format("Signature validation result is: %s", result));
@@ -185,7 +185,7 @@ for(int i =0; i < signature.getSignedInfo().getLength(); i ++){
 
 [待签名XML文档](../src/main/resources/xml/source-doc-to-be-signed.xml)
 
-使用JDK1.8及以下版本的同学，在运行代码时可能会遇到“java.security.InvalidKeyException: Illegal key size”这个异常，这是因为按照美国法律，默认的JDK分发包仅允许支持128位的秘钥长度，
+使用JDK1.8及以下版本的同学，在运行代码时可能会遇到“java.security.InvalidKeyException: Illegal key size”这个异常，这是因为按照美国法律，默认的JDK分发包仅允许支持128位的密钥长度，
 解决方法就是到oracle网站[JCE for Java1.8](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)下载无限制版的JCE替换默认分发的JCE。
 
 下面我们按照上一篇（原理篇）介绍的步骤分步演示怎么来生成签名：
