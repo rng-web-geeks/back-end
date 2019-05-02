@@ -99,7 +99,7 @@ CA机构验证通过后，就会用自己的私钥给待申请的证书签名，
 
 ![中间证书自动下载](images/security/authority-info-ca.png)
 
-检查证书链是否完整可以通过openssl命令来检查，网上也有很多在线的工具可以检查(例如：https://www.ssllabs.com)，如果是openssl可以运行“openssl s_client -connect <domina>:443”进行检查,“domain”是你要检查的站点域名，比如：
+检查证书链是否完整可以通过openssl命令来检查，网上也有很多在线的工具可以检查,例如：[https://www.ssllabs.com](https://www.ssllabs.com)，如果是openssl可以运行“openssl s_client -connect <domina>:443”进行检查,“domain”是你要检查的站点域名，比如：
 
 ![证书链检查](images/security/cert-chains-test.png)
 
@@ -157,6 +157,7 @@ CA就是神，而顶级CA就是众神之神，这些神是绝对公平客观，�
 本来只想写一个短文普及下证书的知识，没想到越写越多，关于互联网的安全，给人的感觉是为了解决一个问题，然后引入更多的问题，道高一尺魔高一丈，但愿地上是天国，没有诈骗，没有监控，没有黑客，还不用996：）
 
 #参考文档
+
 [How Certificate Transparency Works](HTTPS://www.certificate-transparency.org/how-ct-works)
 
 [RFC 5280](HTTPS://tools.ietf.org/html/rfc5280)
