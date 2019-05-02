@@ -1,12 +1,11 @@
 package com.ringcentral.demo.xml;
 
-import com.ringcentral.demo.utils.CertificateHelper;
+import com.ringcentral.demo.utils.SecurityHelper;
 import com.ringcentral.demo.xml.utils.XMLHelper;
 import org.apache.xml.security.signature.XMLSignature;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.print.Doc;
 import javax.xml.crypto.dsig.Reference;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
@@ -21,7 +20,7 @@ public class VerifyXMLSignatureFullExample {
 
         Document doc = XMLHelper.loadXML("xml/signed-xml-example.xml");
 
-        X509Certificate verifyCert = CertificateHelper.loadCert("certs/okta.pem");
+        X509Certificate verifyCert = SecurityHelper.loadCert("certs/test-okta-public-key.pem");
 
         verifyBySantuario(doc, verifyCert);
         verifyByNativeJava(doc, verifyCert);

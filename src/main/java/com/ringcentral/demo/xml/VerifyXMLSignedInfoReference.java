@@ -1,6 +1,6 @@
 package com.ringcentral.demo.xml;
 
-import com.ringcentral.demo.utils.CertificateHelper;
+import com.ringcentral.demo.utils.SecurityHelper;
 import com.ringcentral.demo.xml.utils.XMLHelper;
 import org.apache.xml.security.c14n.implementations.Canonicalizer20010315ExclOmitComments;
 import org.apache.xml.security.signature.NodeFilter;
@@ -23,7 +23,7 @@ public class VerifyXMLSignedInfoReference {
 
         Document doc = XMLHelper.loadXML("xml/signed-xml-example.xml");
 
-        X509Certificate verifyCert = CertificateHelper.loadCert("certs/okta.pem");
+        X509Certificate verifyCert = SecurityHelper.loadCert("certs/test-okta-public-key.pem");
 
         Element signatureNode = getSignatureNode(doc.getDocumentElement());
         Element signInfoNode = XMLHelper.getNextElement(signatureNode.getFirstChild());

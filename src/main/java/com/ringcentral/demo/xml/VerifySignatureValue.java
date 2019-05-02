@@ -1,11 +1,10 @@
 package com.ringcentral.demo.xml;
 
-import com.ringcentral.demo.utils.CertificateHelper;
+import com.ringcentral.demo.utils.SecurityHelper;
 import com.ringcentral.demo.xml.utils.XMLHelper;
 import org.apache.xml.security.c14n.Canonicalizer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import java.security.Signature;
 import java.security.cert.X509Certificate;
@@ -16,7 +15,7 @@ public class VerifySignatureValue {
     public static void main(String[] args) throws Exception {
         org.apache.xml.security.Init.init();
 
-        X509Certificate verifyCert = CertificateHelper.loadCert("certs/okta.pem");
+        X509Certificate verifyCert = SecurityHelper.loadCert("certs/test-okta-public-key.pem");
         Document doc = XMLHelper.loadXML("xml/signed-xml-example.xml");
 
         Element signatureNode = getSignatureNode(doc.getDocumentElement());
