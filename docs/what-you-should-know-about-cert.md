@@ -2,7 +2,7 @@
 
 Kevin Chen - 铃盛软件Web Application Team
 
-自从Google的Chrome从2018年7月起将所有的HTTP网站标记为不安全链接后，网站管理员没用HTTPS出门都不好意思跟人打招呼。
+自从Google的Chrome从2018年7月起将所有的HTTP网站标记为不安全链接后，网站管理员没用HTTPS出门都不好意思跟人打招呼:) ，
 为了启用HTTPS，就需要有个私钥和证书，那证书和私钥是做什么的，为什么需要用到它们？要回答这个问题，需要先了解公开密钥体系以及HTTP和HTTPS的基本原理。
 
 ## 公开密钥算法
