@@ -125,6 +125,8 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
     Host: server.example.com
 
 参数说明：
+
+
 | Parameter     |Description      |
 | :--- | :--- |
 |response_type|表示授权类型，必选项，此处的值固定为"code"|
