@@ -126,7 +126,6 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 
 参数说明：
 
-
 | Parameter     |Description      |
 | :--- | :--- |
 |response_type|表示授权类型，必选项，此处的值固定为"code"|
@@ -143,6 +142,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
     Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |code|表示授权码，必选项。该码的有效期应该很短，通常设为10分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端ID和重定向URI，是一一对应关系。|
@@ -160,6 +160,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
     grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |grant_type|表示使用的授权模式，必选项，此处的值固定为"authorization_code"。|
@@ -187,6 +188,7 @@ Pragma: no-cache
 ```
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |access_token|表示访问令牌，必选项。|
@@ -252,6 +254,7 @@ Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token�
     Host: server.example.com
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |response_type|表示授权类型，此处的值固定为"token"，必选项。|
@@ -268,6 +271,7 @@ Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token�
     Location: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA&state=xyz&token_type=example&expires_in=3600
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |access_token|表示访问令牌，必选项。|
@@ -318,6 +322,7 @@ Client提交用户名密码请求token（步骤B）
 
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |grant_type|表示授权类型，此处的值固定为"password"，必选项。|
@@ -377,6 +382,7 @@ Client申请token（步骤A）
 
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |grant_type|表示授权类型，此处的值固定为"client_credentials"，必选项。|
@@ -451,6 +457,7 @@ Client重定向授权页（步骤A）
 response_type，client_id，redirect_uri，scope，state 跟implicit 模式是一样的。重点看下其他几个参数。
 
 参数说明：
+
 | Parameter     |Description      |
 | :--- | :--- |
 |code_verifier|一串用来加密的 43 位到 128 位的随机字符串。由 A-Z，a-z，0-9，还有符号 -._~ 生成。|
