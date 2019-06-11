@@ -54,7 +54,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 
 首先，Client 想要得到Authorization Server 的授权，需要先注册。比如各种开放平台，需要先由开发者提供网站地址，应用名称，默认重定向地址等信息，才能为其颁发合法的Client id 和 Client Secret 进行OAuth授权。
 
-1. Client id：是 Client 在Authorization Server注册的标志，格式各家实现不同，但是需要全局唯一。一般注册后不会改变，也有实现方喜欢叫App id.
+1. Client id：是 Client 在Authorization Server注册的标志，格式各家实现不同，但是需要全局唯一。一般注册后不会改变，也有实现方喜欢叫App id。
 2. Client secret：与Client id 配对的密钥，格式各家实现不用，保证完全性即可。在进行OAuth授权流程时，Client必须提供Client id与 Client secret。如果Client secret发生泄露，处于安全考虑，Authorization Server一般允许注册方重新生成secret.
 3. User-Agent：一般指用户浏览器，或者APP。
 4. Access token：是完成授权流程后，Client得到的票据，访问Resource Owner的资源时，需要对其进行验证。认证失败Authorization Server将引导Client重新进行OAuth流程。
@@ -79,31 +79,9 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 
 下图描述了一个完整的 Authorization Code 模式授权流程，Client与其他角色的交互通过User-Agent，这里 Client 包含前端和后端服务器。
 
-         +----------+
-         | Resource |
-         |   Owner  |
-         |          |
-         +----------+
-              ^
-              |
-             (B)
-         +----|-----+          Client Identifier      +---------------+
-         |         -+----(A)-- & Redirection URI ---->|               |
-         |  User-   |                                 | Authorization |
-         |  Agent  -+----(B)-- User authenticates --->|     Server    |
-         |          |                                 |               |
-         |         -+----(C)-- Authorization Code ---<|               |
-         +-|----|---+                                 +---------------+
-           |    |                                         ^      v
-          (A)  (C)                                        |      |
-           |    |                                         |      |
-           ^    v                                         |      |
-         +---------+                                      |      |
-         |         |>---(D)-- Authorization Code ---------'      |
-         |  Client |          & Redirection URI                  |
-         |         |                                             |
-         |         |<---(E)----- Access Token -------------------'
-         +---------+       (w/ Optional Refresh Token)
+![](images/oauth2/flow1.png)
+
+
 
 1. 步骤A：用户在通过User-Agent(浏览器)使用Client时，Client需要访问用户Resource Owner的资源，此时发起了OAuth流程。Client携带客户端认证信息（Client id 和 Secret）、请求资源的范围、本地状态，重定向地址等重定向到Authorization Server，用户看到授权确认页面。
 2. 步骤B：用户认证并确认授权信息，Authorization Server判断用户是否合法来进行下一步授权或者返回错误。
@@ -201,40 +179,7 @@ Pragma: no-cache
 
 Implicit 授权的流程如下图，与 Authorization Code 相比，少了返回授权码这一步，Authorization Server直接返回token至Client的前端，Client方面没有后端参与。图中的Web-Hosted Client Resource可以认为是Client的前端资源容器，比如前端服务器，APP等。
 
-
-
-    	 +----------+
-         | Resource |
-         |  Owner   |
-         |          |
-         +----------+
-              ^
-              |
-             (B)
-         +----|-----+          Client Identifier     +---------------+
-         |         -+----(A)-- & Redirection URI --->|               |
-         |  User-   |                                | Authorization |
-         |  Agent  -|----(B)-- User authenticates -->|     Server    |
-         |          |                                |               |
-         |          |<---(C)--- Redirection URI ----<|               |
-         |          |          with Access Token     +---------------+
-         |          |            in Fragment
-         |          |                                +---------------+
-         |          |----(D)--- Redirection URI ---->|   Web-Hosted  |
-         |          |          without Fragment      |     Client    |
-         |          |                                |    Resource   |
-         |     (F)  |<---(E)------- Script ---------<|               |
-         |          |                                +---------------+
-         +-|--------+
-           |    |
-          (A)  (G) Access Token
-           |    |
-           ^    v
-         +---------+
-         |         |
-         |  Client |
-         |         |
-         +---------+
+![](images/oauth2/flow2.png)
 
 1. 步骤A：与 Authorization Code流程类似，Client携带客户端认证信息（Client id 和 Secret）、请求资源的范围、本地状态，重定向地址等重定向到Authorization Server，用户看到授权确认页面。
 2. 步骤B：用户认证并确认授权信息，Authorization Server判断用户是否合法来进行下一步授权或者返回错误。
@@ -287,25 +232,7 @@ Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token�
 
 这种授权方式其实是常见的用户名密码认证方式。使用这种授权的Client必须是高度可信的，比如操作系统或者高权限的应用。只有当其他的流程不能使用时，才启用这种方式，同时Authorization Server必须特别关注Client确保不会出现安全问题。整个过程中，Client不得保存用户的密码（只能由Client来保证，所以Client必须是高度可信的）。
 
-
-
-    	 +----------+
-         | Resource |
-         |  Owner   |
-         |          |
-         +----------+
-              v
-              |    Resource Owner
-             (A) Password Credentials
-              |
-              v
-         +---------+                                  +---------------+
-         |         |>--(B)---- Resource Owner ------->|               |
-         |         |         Password Credentials     | Authorization |
-         | Client  |                                  |     Server    |
-         |         |<--(C)---- Access Token ---------<|               |
-         |         |    (w/ Optional Refresh Token)   |               |
-         +---------+                                  +---------------+
+![](images/oauth2/flow3.png)
 
 1. 步骤A：resource owner 提供给Client用户名密码。
 2. 步骤B：Client直接使用用户名密码向Authorization Server进行认证，并请求token。
@@ -360,14 +287,7 @@ Pragma: no-cache
 
 该模式是Client 访问实现与Authorization Server约定好的资源。Client以自己的名义，而不是以用户的名义，向Authorization Server进行认证。严格地说，Client Credentials 模式并不属于OAuth框架所要解决的问题。在这种模式中，用户直接向Client注册，Client以自己的名义要求Authorization Server提供服务，其实不存在授权问题。
 
-
-    	 +---------+                                  +---------------+
-         |         |                                  |               |
-         |         |>--(A)- Client Authentication --->| Authorization |
-         | Client  |                                  |     Server    |
-         |         |<--(B)---- Access Token ---------<|               |
-         |         |                                  |               |
-         +---------+                                  +---------------+
+![](images/oauth2/flow4.png)
 
 1. 步骤A：Client 向Authorization Server进行身份认证，并请求token。
 2. 步骤B：Authorization Server 对 Client信息进行认证，有效则发放token。
@@ -421,23 +341,7 @@ Pragma: no-cache
 随着无服务端移动应用或SPA的流行，IETF针对Implicit授权提出了优化方案，在RFC-6749的四种Flow之外另外定义了一种更安全的PKCE模式（RFC-7636）。
 PKCE的流程大概如下:
 
-
-
-													 +-------------------+
-                                                     |   Authz Server    |
-           +--------+                                | +---------------+ |
-           |        |--(A)- Authorization Request ---->|               | |
-           |        |       + t(code_verifier), t_m  | | Authorization | |
-           |        |                                | |    Endpoint   | |
-           |        |<-(B)---- Authorization Code -----|               | |
-           |        |                                | +---------------+ |
-           | Client |                                |                   |
-           |        |                                | +---------------+ |
-           |        |--(C)-- Access Token Request ---->|               | |
-           |        |          + code_verifier       | |    Token      | |
-           |        |                                | |   Endpoint    | |
-           |        |<-(D)------ Access Token ---------|               | |
-           +--------+                                | +---------------+ |
+![](images/oauth2/flow5.png) 
 
 这里引入了几个新的变量：t_m（摘要算法），code_verifier，code_challenge（即图中经过算法t_m计算后得到的t(code_verifier)参数）
 
