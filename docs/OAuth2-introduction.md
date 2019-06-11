@@ -458,11 +458,11 @@ JWT（JSON Web Token）是近几年移动端常用的token，它可以直接将�
 2. 保护好secret私钥，该私钥非常重要。
 3. 如果可以，请使用https协议传递JWT。
 
-JWT也有自己的RFC规范RFC-7519，这里简单介绍一下它的格式。详细请参考文末的RFC链接
+JWT也有自己的RFC规范RFC-7519，这里简单介绍一下它的格式。详细请参考文末的RFC链接。
 
 ![](images/oauth2/Untitled-2a5aa9d0-2e52-43d2-9a74-ef24c45f72ac.png)
 
-JWT的格式很简单，一个JWT字符串分为Header，Payload，Signature三部分，他们的原始字符串经过编码后由小数点分隔连接起来：
+JWT的格式很简单，一个JWT字符串分为Header，Payload，Signature三部分，他们的原始字符串经过编码后由小数点分隔连接起来。
 
 Header记录着token类型和摘要算法，这里的明文最后要经过Base64URL编码：
 
