@@ -416,7 +416,7 @@ Pragma: no-cache
 随着无服务端移动应用或SPA的流行，IETF针对Implicit授权提出了优化方案，在RFC-6749的四种Flow之外另外定义了一种更安全的PKCE模式（RFC-7636）。
 PKCE的流程大概如下:
 
-    																															 +-------------------+
+													 +-------------------+
                                                      |   Authz Server    |
            +--------+                                | +---------------+ |
            |        |--(A)- Authorization Request ---->|               | |
