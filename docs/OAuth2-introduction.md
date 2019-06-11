@@ -201,6 +201,8 @@ Pragma: no-cache
 
 Implicit 授权的流程如下图，与 Authorization Code 相比，少了返回授权码这一步，Authorization Server直接返回token至Client的前端，Client方面没有后端参与。图中的Web-Hosted Client Resource可以认为是Client的前端资源容器，比如前端服务器，APP等。
 
+
+
     	 +----------+
          | Resource |
          |  Owner   |
@@ -285,6 +287,8 @@ Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token�
 
 这种授权方式其实是常见的用户名密码认证方式。使用这种授权的Client必须是高度可信的，比如操作系统或者高权限的应用。只有当其他的流程不能使用时，才启用这种方式，同时Authorization Server必须特别关注Client确保不会出现安全问题。整个过程中，Client不得保存用户的密码（只能由Client来保证，所以Client必须是高度可信的）。
 
+
+
     	 +----------+
          | Resource |
          |  Owner   |
@@ -356,6 +360,7 @@ Pragma: no-cache
 
 该模式是Client 访问实现与Authorization Server约定好的资源。Client以自己的名义，而不是以用户的名义，向Authorization Server进行认证。严格地说，Client Credentials 模式并不属于OAuth框架所要解决的问题。在这种模式中，用户直接向Client注册，Client以自己的名义要求Authorization Server提供服务，其实不存在授权问题。
 
+
     	 +---------+                                  +---------------+
          |         |                                  |               |
          |         |>--(A)- Client Authentication --->| Authorization |
@@ -415,6 +420,8 @@ Pragma: no-cache
 
 随着无服务端移动应用或SPA的流行，IETF针对Implicit授权提出了优化方案，在RFC-6749的四种Flow之外另外定义了一种更安全的PKCE模式（RFC-7636）。
 PKCE的流程大概如下:
+
+
 
 													 +-------------------+
                                                      |   Authz Server    |
