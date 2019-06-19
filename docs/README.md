@@ -14,6 +14,8 @@
 
 [XML数字签名验证实践篇](xml-signature-practics.md)
 
+[证书，证书链，CA的那些事](what-you-should-know-about-cert.md)
+
 ## 免责申明
 本博客的任何技术内容和代码任何人都可以公开使用和转载（转载请注明出处）。
 
