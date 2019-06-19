@@ -1,13 +1,17 @@
 
 ![](images/oauth2/Untitled-fd497460-61c4-4965-8a17-b8713a4c9372.png)
 
-只要是接触过开放各种开放平台的开发者，对于OAuth概念肯定不陌生。但是由于OAuth流程比较复杂，对于刚接触的人来说，容易云里雾里。我之前工作上接触OAuth比较多，本文以OAuth2.0的RFC文档为基础，结合自己以前一些工作上的经验，系统地梳理一下OAuth2.0规范。
+# OAuth2.0面面观
+
+Sheldon Cai - 铃盛软件Web Application Team
+
+只要是接触过各种开放平台的开发者，对于OAuth概念肯定不陌生。但是由于OAuth流程比较复杂，对于刚接触的人来说，容易云里雾里。我之前工作上接触OAuth比较多，本文以OAuth2.0的RFC文档为基础，结合自己以前一些工作上的经验，系统地梳理一下OAuth2.0规范。
 
 ## What is OAuth
 
 关于OAuth的定义，维基百科是这么说的：
 
-> OAuth is an open standard for access delegation, commonly used as a way for Internet users to grant websites or applications access to their information on other websites but without giving them the passwords.[1] This mechanism is used by companies such as Amazon,[2] Google, Facebook, Microsoft and Twitter to permit the users to share information about their accounts with third party applications or websites.
+> OAuth is an open standard for access delegation, commonly used as a way for Internet users to grant websites or applications access to their information on other websites but without giving them the passwords. This mechanism is used by companies such as Amazon, Google, Facebook, Microsoft and Twitter to permit the users to share information about their accounts with third party applications or websites.
 
 O == Open, Auth == Authorization（授权）, not Authentication（认证）.
 
@@ -23,17 +27,17 @@ O == Open, Auth == Authorization（授权）, not Authentication（认证）.
 
 上面功能的实现者们于2007年成立了OAuth讨论组，撰写并公布了最早的开放授权（OAuth）草案。这个草案后来得到了Google的关注，最终也一起参与了规范的制定。
 
-在2007年10月，OAuth1.0最后草案公布。
+在2007年10月，OAuth1.0草案公布。
 
 在2008年11月的IETF第73次会议上，OAuth得到广泛支持，IETF正式为它成立了一个工作组。
 
-2010年，编号为RFC 5849的OAuth1.0 RFC文档发表。
+2010年，编号为RFC-5849的OAuth1.0 RFC文档发表。
 
-在2012年，OAuth2.0 的RFC 6749, 和B earer Token 的 RFC 6750相继发表。大多数互联网应用都以此作为授权标准。需要注意的是OAuth2.0与OAuth1.0并不兼容。
+在2012年，OAuth2.0 的RFC-6749, 和Bearer Token 的 RFC-6750相继发表。大多数互联网应用都以此作为授权标准。需要注意的是OAuth2.0与OAuth1.0并不兼容。
 
-虽然IETF的RFC意为征求意见稿(Request for Comment)，但是目前它已经是开放授权的事实标准。
+虽然IETF的RFC意为征求意见稿(Request for Comment)，但是经过多年的业界实践，目前它已经是开放授权的事实标准。
 
-本文后续的一些内容，基本提炼自IETF的RFC文档。
+本文后续的一些内容，提炼自IETF的RFC文档，并结合我自己工作中的一些经验总结。
 
 ## 一些概念
 
@@ -55,7 +59,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 首先，Client 想要得到Authorization Server 的授权，需要先注册。比如各种开放平台，需要先由开发者提供网站地址，应用名称，默认重定向地址等信息，才能为其颁发合法的Client id 和 Client Secret 进行OAuth授权。
 
 1. Client id：是 Client 在Authorization Server注册的标志，格式各家实现不同，但是需要全局唯一。一般注册后不会改变，也有实现方喜欢叫App id。
-2. Client secret：与Client id 配对的密钥，格式各家实现不用，保证完全性即可。在进行OAuth授权流程时，Client必须提供Client id与 Client secret。如果Client secret发生泄露，处于安全考虑，Authorization Server一般允许注册方重新生成secret.
+2. Client secret：与Client id 配对的密钥，格式各家实现不用，保证安全性即可。在进行OAuth授权流程时，Client必须提供Client id与 Client secret。如果Client secret发生泄露，出于安全考虑，Authorization Server一般允许注册方重新生成secret.
 3. User-Agent：一般指用户浏览器，或者APP。
 4. Access token：是完成授权流程后，Client得到的票据，访问Resource Owner的资源时，需要对其进行验证。认证失败Authorization Server将引导Client重新进行OAuth流程。
 5. Refresh token：类似 AccessToken 的票据，用于刷新Access token（不需要重新走OAuth流程）。Refresh token 是可选项，不一定要实现。
@@ -83,7 +87,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 
 
 
-1. 步骤A：用户在通过User-Agent(浏览器)使用Client时，Client需要访问用户Resource Owner的资源，此时发起了OAuth流程。Client携带客户端认证信息（Client id 和 Secret）、请求资源的范围、本地状态，重定向地址等重定向到Authorization Server，用户看到授权确认页面。
+1. 步骤A：用户在通过User-Agent(浏览器)使用Client时，Client需要访问用户Resource Owner的资源，此时发起了OAuth流程。Client携带客户端认证信息（Client id）、请求资源的范围、本地状态，重定向地址等重定向到Authorization Server，用户看到授权确认页面。
 2. 步骤B：用户认证并确认授权信息，Authorization Server判断用户是否合法来进行下一步授权或者返回错误。
 3. 步骤C：如果用户合法且同意授权，Authorization Server使用第一步Client提交的重定向地址重定向浏览器，并携带授权码和之前Client提供的本地状态信息。
 4. 步骤D：Client 使用授权码找Authorization Server交换access token(处于安全性考虑，一般由Client 的服务端发起)，为了严格验证，这一步除了携带授权码，还需要前面使用的重定向地址。
@@ -189,7 +193,7 @@ Implicit 授权的流程如下图，与 Authorization Code 相比，少了返回
 6. 步骤F：在User-Agent中使用上一步提供的脚本提取URL中的token。
 7. 步骤G：User-Agent传送token给Client。
 
-Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token的过程，而是直接把token提供给User-Agent让Client提取。整个流程中使用URL传递token，不需要Client的服务端参与，安全性欠佳（比如某些网络中转节点可以记录URL日志，导致token泄露等）。使用这个方式授权，需要在安全性和便利性之间做好权衡。
+Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token的过程，而是直接把token提供给User-Agent让Client提取。整个流程中使用URL传递token，不需要Client的服务端参与，且没有严格验证Client信息，安全性欠佳。使用这个方式授权，需要在安全性和便利性之间做好权衡。
 
 流程中几个步骤涉及到的接口：
 
@@ -224,13 +228,15 @@ Implicit 比起 Authorization Code 来说，少了Client使用授权码换Token�
 |access_token|表示访问令牌，必选项。|
 |token_type|表示令牌类型，该值大小写不敏感，必选项，可以是bearer类型或mac类型。|
 |expires_in|表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。|
-|refresh_token|表示更新令牌，用来获取下一次的访问令牌，可选项。|
 |scope|表示权限范围，如果与客户端申请的范围一致，此项可省略。|
+
+Implicit Grant  不严格验证Client，因此这里不提供 refresh_token（以防Client不经用户同意，使用refresh_token不断得到授权）。同时Implicit Grant 的access_token 是通过url的hash返回的，不会在网络上传输，但是还是存在泄漏的可能（如User-Agent本身不安全）。
+
 
 
 ### Resource Owner Password Credentials Grant
 
-这种授权方式其实是常见的用户名密码认证方式。使用这种授权的Client必须是高度可信的，比如操作系统或者高权限的应用。只有当其他的流程不能使用时，才启用这种方式，同时Authorization Server必须特别关注Client确保不会出现安全问题。整个过程中，Client不得保存用户的密码（只能由Client来保证，所以Client必须是高度可信的）。
+这种授权方式其实是常见的用户名密码认证方式。使用这种授权的Client必须是高度可信的，比如操作系统。只有当其他的流程不能使用时，才启用这种方式，同时Authorization Server必须特别关注Client确保不会出现安全问题。整个过程中，Client不得保存用户的密码（只能由Client来保证，所以Client必须是高度可信的）。
 
 ![](images/oauth2/flow3.png)
 
@@ -473,7 +479,7 @@ Header记录着token类型和摘要算法，这里的明文最后要经过Base64
 }
 ```
 
-Payload记录着业务信息和用户数据（非敏感），字段可以根据需求自定义。这里的明文同样也要经过Base64URL编码：
+Payload记录着业务信息和用户数据（非敏感），字段可以根据需求自定义，**处于安全性考虑，实现方会再加上expire过期时间字段控制生命周期**。这里的明文同样也要经过Base64URL编码：
 
 ```json
 {
@@ -483,7 +489,7 @@ Payload记录着业务信息和用户数据（非敏感），字段可以根据�
 }
 ```
 
-Signature是加密后的Header和Payload信息，加密算法需要同Header中alg属性一致，这里是HS256。secret是加密需要的密钥，不可泄漏：
+Signature是Header和Payload经过摘要算法处理后的签名信息，使用的摘要算法需要同Header中alg属性一致，这里是HS256。secret是加密需要的密钥，使用对称加密算法的话密钥泄漏影响较大。如果使用非对称加密算法（如RSA256），使用的是公钥验证签名，风险就小很多：
 
 ```json
 HMACSHA256(
