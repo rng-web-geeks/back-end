@@ -90,7 +90,7 @@ OAuth2.0 把整个流程中的参与者分为4种角色：
 1. 步骤A：用户在通过User-Agent(浏览器)使用Client时，Client需要访问用户Resource Owner的资源，此时发起了OAuth流程。Client携带客户端认证信息（Client id）、请求资源的范围、本地状态，重定向地址等重定向到Authorization Server，用户看到授权确认页面。
 2. 步骤B：用户认证并确认授权信息，Authorization Server判断用户是否合法来进行下一步授权或者返回错误。
 3. 步骤C：如果用户合法且同意授权，Authorization Server使用第一步Client提交的重定向地址重定向浏览器，并携带授权码和之前Client提供的本地状态信息。
-4. 步骤D：Client 使用授权码找Authorization Server交换access token(处于安全性考虑，一般由Client 的服务端发起)，为了严格验证，这一步除了携带授权码，还需要前面使用的重定向地址。
+4. 步骤D：Client 使用授权码找Authorization Server交换access token(出于安全性考虑，一般由Client 的服务端发起)，为了严格验证，这一步除了携带授权码，还需要前面使用的重定向地址。
 5. 步骤E：Authorization Server 验证Client提交的授权码是否有效，重定向地址是否与步骤C匹配。如果验证通过，将返回access token和refresh token（可选）给Client。
 
 得到 access token后，Client可以在token失效前，访问Resource Server得到已授权的用户资源。OAuth2.0在Client与Resource Server之间，设置了一个授权层（authorization layer），Client 通过得到的授权令牌访问资源，对于资源访问权限、时效在颁发令牌时控制。
@@ -479,7 +479,7 @@ Header记录着token类型和摘要算法，这里的明文最后要经过Base64
 }
 ```
 
-Payload记录着业务信息和用户数据（非敏感），字段可以根据需求自定义，**处于安全性考虑，实现方会再加上expire过期时间字段控制生命周期**。这里的明文同样也要经过Base64URL编码：
+Payload记录着业务信息和用户数据（非敏感），字段可以根据需求自定义，**出于安全性考虑，实现方会再加上expire过期时间字段控制生命周期**。这里的明文同样也要经过Base64URL编码：
 
 ```json
 {
