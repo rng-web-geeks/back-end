@@ -16,6 +16,8 @@
 
 [证书，证书链，CA的那些事](what-you-should-know-about-cert.md)
 
+[OAuth2 介绍](OAuth2-introduction.md)
+
 ## 免责申明
 本博客的任何技术内容和代码任何人都可以公开使用和转载（转载请注明出处）。
 
