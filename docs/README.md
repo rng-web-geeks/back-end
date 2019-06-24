@@ -18,6 +18,8 @@
 
 [OAuth2 介绍](OAuth2-introduction.md)
 
+[在 GitLab Runner 未安装 Chrome 的情况下，配置 Karma 使用 Chrome Headless 进行单元测试 (踩坑日记)](How-to-configure-Karma-to-use-Chrome-Headless-even-when-Chrome-is-not-installed-in-GitLab-Runner.md)
+
 ## 免责申明
 本博客的任何技术内容和代码任何人都可以公开使用和转载（转载请注明出处）。
 
