@@ -215,6 +215,7 @@ public class Tester {
 }
 ```
 第一个调用“query(null)”的实参"null"是任何对象类型的空值，它可以被自动的转换成任何非原始数据类型，三个方法的参数类型分别为“Object”， “Object[]”和“String[]”，“null”都可以匹配到，并且“Object[]”比“Object”具体，“String[]”又比“Object[]”更具体，因此它最终会匹配到“query(String... value)”这个方法。
+对象数组比对象更具体的原因是因为数组也是对象，数组可以赋值给对象变量，反过来不行，有兴趣可以查看这个[链接](https://docs.oracle.com/javase/specs/jls/se17/html/jls-10.html) 。
 对于“query(Object) value)”调用，实参已经被强制转成“Object”类型，因而它的最会匹配到“query(Object value)”方法。
 
 有兴趣的同学可以试着分析下下面的例子，然后运行代码对比下结果和自己分析的是否一致：
