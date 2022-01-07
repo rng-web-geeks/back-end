@@ -149,7 +149,7 @@ class Subclass2 implements Superinterface {
 }
 ```
 Superinterface.super.foo() 也属于调用形式的第六种情况TypeName.super. [TypeArguments] Identifier，SuperInterface是接口，这种形式需要满足一个基本条件，即代码所在的类或者包含类必须直接实现这个接口，间接实现不行。
-这里Subclass2直接实现了Superinterface接口，满足条件，会使用Superinterface作为查找入口并匹配到它的default方法。
+这里Subclass2直接实现了Superinterface接口，满足条件，会使用Superinterface作为查找入口并匹配到它的default方法。<br/>
 Note: 如果Superinterface没有匹配的default方法，会继续往它的父接口继续查找。
 
 案例4：
@@ -191,7 +191,7 @@ public class Tester {
     }
 }
 ```
-把案例4修改下增加“calc(int value)”，"calc(20)" 在第一阶段可以匹配到“calc(long value)”和"calc(int value)", “20”是int类型，"calc(int value)"对它来说更精确，所以会匹配到它，执行的时候会输出“20 calc by calc(int value).”
+把案例4修改下增加“calc(int value)”，"calc(20)" 在第一阶段可以匹配到“calc(long value)”和"calc(int value)", “20”是int类型，"calc(int value)"对它来说更精确，所以会匹配到它，执行的时候会输出“20 calc by calc(int value).”<br/>
 "calc(Integer.valueOf(20))"则会匹配到“calc(Integer value)”, 执行的时候输出“20 calc by calc(Integer value).”。
 
 案例6：
@@ -210,13 +210,13 @@ public class Tester {
     }
     public static void main(String[] args) {
         query(null);
-        query((Object) value);
+        query((Object) null);
     }
 }
 ```
-第一个调用“query(null)”的实参"null"是任何对象类型的空值，它可以被自动的转换成任何非原始数据类型，三个方法的参数类型分别为“Object”， “Object[]”和“String[]”，“null”都可以匹配到，并且“Object[]”比“Object”具体，“String[]”又比“Object[]”更具体，因此它最终会匹配到“query(String... value)”这个方法。
-对象数组比对象更具体的原因是因为数组也是对象，数组可以赋值给对象变量，反过来不行，有兴趣可以查看这个[链接](https://docs.oracle.com/javase/specs/jls/se17/html/jls-10.html) 。
-对于“query(Object) value)”调用，实参已经被强制转成“Object”类型，因而它的最会匹配到“query(Object value)”方法。
+第一个调用“query(null)”的实参"null"是任何对象类型的空值，它可以被自动的转换成任何非原始数据类型，三个方法的参数类型分别为“Object”， “Object[]”和“String[]”，“null”都可以匹配到，并且“Object[]”比“Object”具体，“String[]”又比“Object[]”更具体，因此它最终会匹配到“query(String... value)”这个方法。<br/>
+对象数组比对象更具体的原因是因为数组也是对象，数组可以赋值给对象变量，反过来不行，感兴趣可以查看这个[链接](https://docs.oracle.com/javase/specs/jls/se17/html/jls-10.html) 。<br/>
+对于“query(Object) null)”调用，实参已经被强制转成“Object”类型，因而它的最会匹配到“query(Object value)”方法。
 
 有兴趣的同学可以试着分析下下面的例子，然后运行代码对比下结果和自己分析的是否一致：
 ```Java
