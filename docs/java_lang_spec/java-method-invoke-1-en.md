@@ -27,7 +27,7 @@ There are six different cases based on Java language specification, we will revi
     * Let say the class which calls the method is class E, if class E or its superclass contains either an instance or a static method, then use E as search type. 
     * If the invocation method is inside a nested class like anonymous class or inner class, and it's outer class or outer class's superclass hierarchy contains the invocation method, then use this outer class as search type.
     * Compiler will check if there are any static import method matches with invocation method if previous two phases are all failed.<br/>
-    In short, the compiler will try with caller class inherited hierarchy, then from its outer class inherited hierarchy，at last checks if there is any static import method matches the target method. **Please be aware that Java compiler only cares about method name without checking signature in this phase.**。
+    Simply put, the compiler will try with caller class inherited hierarchy, then from its outer class inherited hierarchy，at last checks if there is any static import method matches the target method. **Please be aware that Java compiler only cares about method name without checking signature in this phase.**。
  2. TypeName . [TypeArguments] Identifier: It's static method invocation, Java compiler will use TypeName as search type.
  3. ExpressionName . [TypeArguments] Identifier.
  4. Primary.[TypeArguments] Identifier: Third and fourth expression are similar, Java compiler will use the type of the expression as search type.
