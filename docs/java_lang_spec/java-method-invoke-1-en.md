@@ -20,7 +20,7 @@ Method Invocation Expression:
 ArgumentList:<br/>
 Expression {, Expression}
 
-## Step 1: determinate type to search
+## Step 1: determine type to search
 All Java method has to be defined inside a Java class, therefor Java compiler will need to figure out the target class as a starting point.
 There are six different cases based on Java language specification, we will review them one by one:
  1. Java compiler will perform "comb rule" to find the target type if the form is **MethodName** which is the first expression form in previous section, the detail rules are：
@@ -36,7 +36,7 @@ There are six different cases based on Java language specification, we will revi
     * If TypeName is Java class，then uses the super class of TypeName; if TypeName is Object class，Java compiler will throw compile error since Object class doesn't have super class.
     * If TypeName is Java interface，then the class of the calling method (either outer class or current class) must directly implement this Java interface, otherwise Java compiler will throw compile error, if matches the precondition then use this interface, and it's inherited hierarchy as search type.
  
-## Step 2: determinate Java method signature
+## Step 2: determine Java method signature
 Step 2 will be executed after step 1, it starts from the class or interface determines in step 1, there are three phases in this step in order to be backward compatible with older Java version: 
 1. The first phase performs overload without permitting boxing and unboxing conversion，also not permitting the use of variable arity method invocation，compiler will stop if it finds the matched method signature otherwise continues with the next phases.
 2. The second phase performs overload with permitting boxing and unboxing conversion, but still precludes the use of variable arity method invocation, if no applicable method is found during this phase then processing continues to the third phase.
@@ -242,4 +242,4 @@ public class Squid {
 Java invocation method signature will be confirmed after compiled, and store in Java class file. Java runtime will use it together with invocation context during runtime to determine the final method to support Java method override, we will talk about in next article if there is a chance.
 
 # Reference
-[Java Language specification](https://docs.oracle.com/javase/specs/jls/se17/html/jls-15.html#jls-15.12)
+[Java Language specification](https://docs.oracle.com/javase/specs/jls/se18/html/jls-15.html#jls-15.12)
