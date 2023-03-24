@@ -241,4 +241,4 @@ public class Squid {
 Java代码编译后，调用的方法以及方法签名就确定了，字节码会把这些信息都记录在class文件，执行阶段会依据这些信息确定运行时最终被执行的方法，比如成员方法调用要确定是否存子类覆盖(多态)的情况，我们留待下次分解。
 
 # 参考文档
-[Java语言规范之方法表达式](https://docs.oracle.com/javase/specs/jls/se17/html/jls-15.html#jls-15.12)
+[Java语言规范之方法表达式](https://docs.oracle.com/javase/specs/jls/se18/html/jls-15.html#jls-15.12)
