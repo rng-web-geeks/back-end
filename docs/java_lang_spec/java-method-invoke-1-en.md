@@ -1,4 +1,4 @@
-# How to determinate Java calling method in compile time
+# How to determinate Java calling method during compile time
 
 Kevin Chen - Ringcentral Web Application Team
 
